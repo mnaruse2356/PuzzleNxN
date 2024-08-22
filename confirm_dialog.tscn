@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6qiv7q3uv2n2"]
+
+[ext_resource type="Script" path="res://confirm_dialog.gd" id="1_pf3ud"]
+
+[node name="ConfirmDialog" type="ConfirmationDialog"]
+auto_translate_mode = 1
+title = "確認"
+size = Vector2i(256, 128)
+always_on_top = true
+popup_window = true
+ok_button_text = "はい"
+dialog_text = "あきらめますか？"
+dialog_close_on_escape = false
+cancel_button_text = "いいえ"
+script = ExtResource("1_pf3ud")

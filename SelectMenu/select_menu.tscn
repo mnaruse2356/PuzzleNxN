@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhnjgh7kf3737"]
+
+[ext_resource type="Script" path="res://SelectMenu/select_menu.gd" id="1_tih8h"]
+[ext_resource type="Texture2D" uid="uid://cj6lrm6bm7blw" path="res://bird.jpg" id="2_nyf6b"]
+[ext_resource type="Texture2D" uid="uid://oyopyxc4vyly" path="res://folder.png" id="3_st0n8"]
+[ext_resource type="Texture2D" uid="uid://kn20wpvlg14a" path="res://sakura.jpg" id="3_ujmvv"]
+[ext_resource type="Script" path="res://SelectMenu/load_file_dialog.gd" id="4_fqi8x"]
+
+[node name="SelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tih8h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -400.0
+offset_right = 128.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="InstalledImage1" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("2_nyf6b")
+expand_mode = 1
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="InstalledImage2" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("3_ujmvv")
+expand_mode = 1
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="DeviceImage" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("3_st0n8")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/DeviceImage"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 16.0
+offset_bottom = 39.0
+grow_horizontal = 0
+text = "Load from Device."
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+option_count = 1
+use_native_dialog = true
+option_0/name = "*.jpg"
+script = ExtResource("4_fqi8x")
+
+[node name="TrimMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ButtonTrimOK" type="Button" parent="TrimMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = 300.0
+offset_right = 28.0
+offset_bottom = 348.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "OK"
+
+[node name="ButtonTrimBack" type="Button" parent="TrimMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 52.0
+offset_top = -420.0
+offset_right = 148.0
+offset_bottom = -372.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "メニューに戻る"
+
+[connection signal="gui_input" from="VBoxContainer/InstalledImage1" to="." method="_on_installed_image_1_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/InstalledImage2" to="." method="_on_installed_image_2_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/DeviceImage" to="." method="_on_device_image_gui_input"]
+[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_file_selected"]
+[connection signal="image_loaded" from="LoadFileDialog" to="." method="_on_load_file_dialog_image_loaded"]
+[connection signal="pressed" from="TrimMenu/ButtonTrimOK" to="." method="_on_button_trim_ok_pressed"]
+[connection signal="pressed" from="TrimMenu/ButtonTrimBack" to="." method="_on_button_trim_back_pressed"]

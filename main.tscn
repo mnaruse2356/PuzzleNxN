@@ -1,0 +1,112 @@
+[gd_scene load_steps=4 format=3 uid="uid://488pq8krfdul"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_rhnb0"]
+[ext_resource type="Script" path="res://divide_slider.gd" id="3_us6cp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_smws0"]
+font_size = 32
+
+[node name="Main" type="Node2D"]
+position = Vector2(243, 513)
+script = ExtResource("1_rhnb0")
+divide_num = 3
+size_square = 400.0
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 40)
+text = "START"
+
+[node name="DivideSlider" type="HSlider" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 160.0
+offset_right = 128.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 3.0
+max_value = 9.0
+value = 3.0
+script = ExtResource("3_us6cp")
+
+[node name="Label" type="Label" parent="Menu/DivideSlider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -48.0
+offset_right = 41.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3分割"
+label_settings = SubResource("LabelSettings_smws0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -472.0
+offset_right = 176.0
+offset_bottom = -408.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "メニューに戻る"
+
+[node name="GiveUpButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -272.0
+offset_right = -48.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "あきらめる"
+
+[connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="drag_ended" from="Menu/DivideSlider" to="." method="_on_divide_slider_drag_ended"]
+[connection signal="value_changed" from="Menu/DivideSlider" to="Menu/DivideSlider" method="_on_value_changed"]
+[connection signal="pressed" from="Menu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="GiveUpButton" to="." method="_on_give_up_button_pressed"]
