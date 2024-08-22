@@ -14,6 +14,10 @@ func _ready() -> void:
 				_plugin.connect("image_request_completed", _on_android_image_request_completed)
 				_plugin.connect("error", _on_android_error)
 				_plugin.connect("permission_not_granted_by_user", _on_android_permission_not_granted_by_user)
+				var option: Dictionary = {}
+				option["auto_rotate_image"] = true
+				option["image_format"] = "jpg"
+				_plugin.setOptions(option)
 		"iOS":
 			_os_type = OSType.IOS
 			if Engine.has_singleton(IOS_PLUGIN_NAME):
