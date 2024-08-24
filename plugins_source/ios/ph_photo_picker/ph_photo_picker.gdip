@@ -1,0 +1,17 @@
+[config]
+name="PHPhotoPicker"
+binary="ph_photo_picker.xcframework"
+
+initialization="godot_phphotopicker_init"
+deinitialization="godot_phphotopicker_deinit"
+
+[dependencies]
+linked=[]
+embedded=[]
+system=[]
+
+capabilities=[]
+
+files=[]
+
+[plist]
