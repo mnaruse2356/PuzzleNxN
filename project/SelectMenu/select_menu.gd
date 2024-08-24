@@ -80,7 +80,7 @@ func _set_menu_trim_mode(trim: bool) -> void:
 	$VBoxContainer.visible = !trim
 	$TrimMenu.visible = trim
 
-const MAIN_SCENE = preload("res://main.tscn")
+const MAIN_SCENE = preload("res://Main/main.tscn")
 const TRIM_IMAGE = preload("res://SelectMenu/trim_image.tscn")
 const SAVE_IMAGE_SIZE = 1024
 

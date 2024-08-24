@@ -326,7 +326,7 @@ func _setup_initial_emptyPos() -> void:
 var texture: Texture2D
 @export var divide_num: int
 @export var size_square: float
-const ITEM_SCENE = preload("res://item.tscn")
+const ITEM_SCENE = preload("res://Main/item.tscn")
 
 var play_items: Array[Item]
 var unit_size: float

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://488pq8krfdul"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_rhnb0"]
-[ext_resource type="Script" path="res://divide_slider.gd" id="3_us6cp"]
+[ext_resource type="Script" path="res://Main/main.gd" id="1_rhnb0"]
+[ext_resource type="Script" path="res://Main/divide_slider.gd" id="3_us6cp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_smws0"]
 font_size = 32
