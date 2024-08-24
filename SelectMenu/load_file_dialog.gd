@@ -26,7 +26,6 @@ func _ready() -> void:
 				print("Could not load plugin: ", IOS_PLUGIN_NAME)
 			if _plugin:
 				_plugin.connect("image_picked", _on_ios_image_picked)
-				_plugin.connect("permission_updated", _on_ios_permission_updated)
 				
 
 func open_dialog() -> void:
@@ -35,14 +34,10 @@ func open_dialog() -> void:
 			_plugin.getGalleryImage()
 			pass
 		OSType.IOS:
-			if _plugin.permission_status(_plugin.PERMISSION_TARGET_PHOTO_LIBRARY) != _plugin.PERMISSION_STATUS_ALLOWED:
-				_plugin.request_permission(_plugin.PERMISSION_TARGET_PHOTO_LIBRARY)
-			else:
-				_ios_present_photo_picker()
+			_plugin.present()
 		OSType.OTHER:
 			current_dir = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_PICTURES)
 			popup_centered()
-
 
 func _on_android_image_request_completed(dict: Dictionary) -> void:
 	var image_buffer = dict.values()[0]
@@ -64,14 +59,6 @@ func _on_android_permission_not_granted_by_user(permission: String) -> void:
 func _on_ios_image_picked(image: Image) -> void:
 	image_loaded.emit(image)
 
-func _on_ios_permission_updated(target: int, status: int) -> void:
-	if target == _plugin.PERMISSION_TARGET_PHOTO_LIBRARY:
-			if status == _plugin.PERMISSION_STATUS_ALLOWED:
-				_ios_present_photo_picker()
-
-func _ios_present_photo_picker() -> void:
-	_plugin.present(_plugin.SOURCE_PHOTO_LIBRARY)
-
 func _on_file_selected(path: String) -> void:
 	var image = Image.load_from_file(path)
 	if image == null:
@@ -81,7 +68,7 @@ func _on_file_selected(path: String) -> void:
 
 
 const ANDROID_PLUGIN_NAME = "GodotGetImage"
-const IOS_PLUGIN_NAME = "PhotoPicker"
+const IOS_PLUGIN_NAME = "PHPhotoPicker"
 
 enum OSType {
 	ANDROID,
