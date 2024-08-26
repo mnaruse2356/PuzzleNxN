@@ -1,6 +1,12 @@
 class_name TrimImage
 extends Node2D
 
+func _ready() -> void:
+	var os = OS.get_name()
+	if (os == "iOS" || os == "Android"):
+		_mouse_wheel_enabled = false
+	else:
+		_mouse_wheel_enabled = true
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -10,6 +16,12 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 				_mouse_drag = true
 			elif event.is_released():
 				_mouse_drag = false
+		elif _mouse_wheel_enabled:
+			if event.is_pressed():
+				if button_index == MOUSE_BUTTON_WHEEL_DOWN:
+					zoom_in()
+				elif button_index == MOUSE_BUTTON_WHEEL_UP:
+					zoom_out()
 	elif event is InputEventMouseMotion:
 		if _mouse_drag:
 			_move_image(event.relative)
@@ -116,3 +128,5 @@ const _DISP_RECT_SIZE = 512
 var _mouse_drag = false
 var _scale_factor: float = 1.0
 var _scale_coefficient: float = 1.0
+
+var _mouse_wheel_enabled = false
