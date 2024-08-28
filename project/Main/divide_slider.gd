@@ -9,7 +9,7 @@ func _on_value_changed(v: float) -> void:
 	_apply_label(v)
 
 func _apply_label(v: float) -> void:
-	label.text = "%d分割" % v
+	label.text = "%d" % v + tr("DIVISION")
 
 
 @onready var label: Label = $Label

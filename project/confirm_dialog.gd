@@ -9,11 +9,11 @@ func _ready() -> void:
 func setup_contents(contents: Contents) -> void:
 	match contents:
 		Contents.GIVEUP:
-			dialog_text = "あきらめてギブアップしますか？"
+			dialog_text = tr("TEXT_GIVEUP")
 		Contents.SELECTMENU:
-			dialog_text = "画像選択メニューに戻りますか？"
+			dialog_text = tr("TEXT_BACK_TO_MENU")
 		Contents.QUIT:
-			dialog_text = "アプリを終了しますか？"
+			dialog_text = tr("TEXT_QUIT")
 	dialogContents = contents
 
 var dialogContents: Contents

@@ -45,6 +45,10 @@ enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons
 
 pointing/android/enable_pan_and_scale_gestures=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://lang/trans.ja.translation", "res://lang/trans.en.translation")
+
 [rendering]
 
 renderer/rendering_method="mobile"

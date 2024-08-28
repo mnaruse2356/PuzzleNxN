@@ -121,7 +121,7 @@ offset_right = 148.0
 offset_bottom = -372.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "メニューに戻る"
+text = "BACK_TO_MENU"
 language = "ja_JP"
 
 [connection signal="gui_input" from="VBoxContainer/InstalledImage1" to="." method="_on_installed_image_1_gui_input"]

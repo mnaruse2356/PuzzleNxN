@@ -89,7 +89,7 @@ offset_right = 176.0
 offset_bottom = -408.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "メニューに戻る"
+text = "BACK_TO_MENU"
 
 [node name="GiveUpButton" type="Button" parent="."]
 anchors_preset = 8
@@ -103,7 +103,7 @@ offset_right = -48.0
 offset_bottom = -208.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "あきらめる"
+text = "GIVEUP"
 
 [connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="drag_ended" from="Menu/DivideSlider" to="." method="_on_divide_slider_drag_ended"]
