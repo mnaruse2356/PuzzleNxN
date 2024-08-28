@@ -39,7 +39,7 @@ project/assembly_name="PuzzleNxN"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/html5_file_dialog/plugin.cfg")
 
 [input_devices]
 

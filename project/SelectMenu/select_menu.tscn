@@ -82,6 +82,7 @@ title = "Open a File"
 ok_button_text = "Open"
 file_mode = 0
 access = 2
+filters = PackedStringArray("*.jpg")
 option_count = 1
 use_native_dialog = true
 option_0/name = "*.jpg"
@@ -121,6 +122,7 @@ offset_bottom = -372.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "メニューに戻る"
+language = "ja_JP"
 
 [connection signal="gui_input" from="VBoxContainer/InstalledImage1" to="." method="_on_installed_image_1_gui_input"]
 [connection signal="gui_input" from="VBoxContainer/InstalledImage2" to="." method="_on_installed_image_2_gui_input"]

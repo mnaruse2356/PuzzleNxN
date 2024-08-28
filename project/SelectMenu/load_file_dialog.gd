@@ -26,7 +26,14 @@ func _ready() -> void:
 				print("Could not load plugin: ", IOS_PLUGIN_NAME)
 			if _plugin:
 				_plugin.connect("image_picked", _on_ios_image_picked)
-				
+		"Web":
+			_os_type = OSType.WEB
+			_plugin = HTML5FileDialog.new()
+			if _plugin:
+				_plugin.connect("file_selected", _on_html5_file_selected)
+				_plugin.filters = [".jpg"]
+				_plugin.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
+				add_child(_plugin)
 
 func open_dialog() -> void:
 	match _os_type:
@@ -35,6 +42,8 @@ func open_dialog() -> void:
 			pass
 		OSType.IOS:
 			_plugin.present()
+		OSType.WEB:
+			_plugin.show()
 		OSType.OTHER:
 			current_dir = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_PICTURES)
 			popup_centered()
@@ -59,6 +68,17 @@ func _on_android_permission_not_granted_by_user(permission: String) -> void:
 func _on_ios_image_picked(image: Image) -> void:
 	image_loaded.emit(image)
 
+func _on_html5_file_selected(file: HTML5FileHandle):
+	var binary = await file.as_buffer()
+	if (binary == null):
+		return
+	var image = Image.new()
+	if image.load_jpg_from_buffer(binary) == Error.OK:
+		image_loaded.emit(image)
+	else:
+		OS.alert("can't load jpeg image")
+
+
 func _on_file_selected(path: String) -> void:
 	var image = Image.load_from_file(path)
 	if image == null:
@@ -73,6 +93,7 @@ const IOS_PLUGIN_NAME = "PHPhotoPicker"
 enum OSType {
 	ANDROID,
 	IOS,
+	WEB,
 	OTHER
 }
 var _os_type: OSType = OSType.OTHER
