@@ -1,0 +1,6 @@
+[gd_resource type="SystemFont" load_steps=2 format=3 uid="uid://v4exmbulytjs"]
+
+[ext_resource type="FontFile" uid="uid://8c7altwsgiii" path="res://font/NotoSansJP-Regular.ttf" id="1_2xdyn"]
+
+[resource]
+fallbacks = Array[Font]([ExtResource("1_2xdyn")])

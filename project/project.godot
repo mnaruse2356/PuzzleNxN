@@ -41,6 +41,10 @@ project/assembly_name="PuzzleNxN"
 
 enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/html5_file_dialog/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://font/japanese_font.tres"
+
 [input_devices]
 
 pointing/android/enable_pan_and_scale_gestures=true
