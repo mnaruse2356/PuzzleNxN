@@ -5,8 +5,24 @@ func _ready() -> void:
 	var os = OS.get_name()
 	if (os == "iOS" || os == "Android"):
 		_mouse_wheel_enabled = false
+	elif OS.has_feature("web_android") || OS.has_feature("web_ios"):
+		_mouse_wheel_enabled = false
+		_web_mobile = true
 	else:
 		_mouse_wheel_enabled = true
+
+func _process(delta: float) -> void:
+	if _web_mobile:
+		var pt0 = _touch_pos[0]
+		var pt1 = _touch_pos[1]
+		if pt0 != null && pt1 != null:
+			var length = (pt0 - pt1).length()
+			var diff = length - _prev_touch_length
+			if (_prev_touch_length > 0 && absf(diff) > 2.0):
+				var factor = diff * 0.005 + 1.0
+				_zoom_image(factor)
+			_prev_touch_length = length
+			_mouse_drag = false
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -19,8 +35,10 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 		elif _mouse_wheel_enabled:
 			if event.is_pressed():
 				if button_index == MOUSE_BUTTON_WHEEL_DOWN:
+					_mouse_drag = false
 					zoom_in()
 				elif button_index == MOUSE_BUTTON_WHEEL_UP:
+					_mouse_drag = false
 					zoom_out()
 	elif event is InputEventMouseMotion:
 		if _mouse_drag:
@@ -28,7 +46,18 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMagnifyGesture:
+		_mouse_drag = false
 		_zoom_image(event.factor)
+	elif _web_mobile:
+		if event is InputEventScreenTouch:
+			if event.pressed:
+				if event.index > 0:
+					_mouse_drag = false
+			else:
+				_touch_pos[event.index] = null
+				_prev_touch_length = 0.0
+		if event is InputEventScreenDrag:
+			_touch_pos[event.index] = event.position
 
 func _on_area_2d_mouse_exited() -> void:
 	_mouse_drag = false
@@ -130,3 +159,7 @@ var _scale_factor: float = 1.0
 var _scale_coefficient: float = 1.0
 
 var _mouse_wheel_enabled = false
+
+var _web_mobile = false
+var _touch_pos = [null, null]
+var _prev_touch_length = 0.0
