@@ -19,9 +19,13 @@ func _on_installed_image_gui_input(event: InputEvent, image: TextureRect) -> voi
 func _on_device_image_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.get_button_index() == MOUSE_BUTTON_LEFT:
-			$VBoxContainer.visible = false
-			$LoadFileDialog.open_dialog()
-			$VBoxContainer.visible = true
+			if $LoadFileDialog.get_os_type() == LoadFileDialog.OSType.WEB:
+				$VBoxContainer.visible = false
+				$LoadFileDialog.open_dialog()
+				$VBoxContainer.visible = true
+			else:
+				$LoadFileDialog.open_dialog()
+
 
 func _on_load_file_dialog_image_loaded(image: Image) -> void:
 	var texture = ImageTexture.create_from_image(image)

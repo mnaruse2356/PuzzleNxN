@@ -1,3 +1,4 @@
+class_name LoadFileDialog
 extends FileDialog
 
 signal image_loaded(image: Image)
@@ -48,6 +49,9 @@ func open_dialog() -> void:
 			current_dir = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_PICTURES)
 			popup_centered()
 
+func get_os_type() -> int:
+	return _os_type
+
 func _on_android_image_request_completed(dict: Dictionary) -> void:
 	var image_buffer = dict.values()[0]
 	var image = Image.new()
@@ -85,7 +89,6 @@ func _on_file_selected(path: String) -> void:
 		print("can't open file: %s" % path)
 	else:
 		image_loaded.emit(image)
-
 
 const ANDROID_PLUGIN_NAME = "GodotGetImage"
 const IOS_PLUGIN_NAME = "PHPhotoPicker"
