@@ -78,6 +78,15 @@ func _on_html5_file_selected(file: HTML5FileHandle):
 		return
 	var image = Image.new()
 	if image.load_jpg_from_buffer(binary) == Error.OK:
+		if OS.has_feature("web_android"):
+			var image_size = image.get_size()
+			if (image_size.x > 4096):
+				if (image_size.y > image_size.x):
+					image.resize(image_size.x * 4096 / image_size.y, 4096)
+				else:
+					image.resize(4096, image_size.y * 4096 / image_size.x)
+			elif (image_size.y > 4096):
+				image.resize(image_size.x * 4096 / image_size.y, 4096)
 		image_loaded.emit(image)
 	else:
 		OS.alert("can't load jpeg image")
