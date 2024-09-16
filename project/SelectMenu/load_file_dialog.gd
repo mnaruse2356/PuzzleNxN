@@ -31,7 +31,7 @@ func _ready() -> void:
 			_plugin = HTML5FileDialog.new()
 			if _plugin:
 				_plugin.connect("file_selected", _on_html5_file_selected)
-				_plugin.filters = [".jpg"]
+				_plugin.filters = ["image/jpeg"]
 				_plugin.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
 				add_child(_plugin)
 
