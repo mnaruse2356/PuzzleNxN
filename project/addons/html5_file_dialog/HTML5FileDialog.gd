@@ -95,6 +95,7 @@ if (window.html5filedialoginterface == null) {
 		prompt_dialog: function(id) {
 			console.log("HTML5FileDialog: opening dialog for "+id);
 			let input = document.getElementById('html5filedialog-'+id);
+			input.value = "";
 			input.click();
 		},
 
