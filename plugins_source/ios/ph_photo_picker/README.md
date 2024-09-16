@@ -15,7 +15,7 @@ script/generate_xcframework.sh [debug|release|release_debug]
 ```
 
 ## Notice
-Copyright 2024 (c) NARUSE Masahiro.
+Copyright (c) 2024 NARUSE Masahiro.
 This software is released under the MIT License, see [LICENSE](../../../LICENSE)
 
 This plugin is implemented with reference to [Godot PhotoPicker plugin in Godot iOS plugins](https://github.com/godotengine/godot-ios-plugins/tree/master/plugins/photo_picker).
