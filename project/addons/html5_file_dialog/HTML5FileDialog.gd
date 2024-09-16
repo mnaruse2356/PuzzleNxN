@@ -96,7 +96,13 @@ if (window.html5filedialoginterface == null) {
 			console.log("HTML5FileDialog: opening dialog for "+id);
 			let input = document.getElementById('html5filedialog-'+id);
 			input.value = "";
-			input.click();
+			if (navigator.userActivation.isActive) {
+				input.click();
+			} else {
+				setTimeout(function() {
+					input.click();
+				}, 250);
+			}
 		},
 
 		onchanged: function(event) {
