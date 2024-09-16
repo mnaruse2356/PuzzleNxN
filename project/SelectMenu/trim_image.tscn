@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b837ov6j6vxcy"]
+[gd_scene load_steps=5 format=3 uid="uid://b837ov6j6vxcy"]
 
 [ext_resource type="Script" path="res://SelectMenu/trim_image.gd" id="1_0jtks"]
 [ext_resource type="Script" path="res://SelectMenu/trim_border.gd" id="2_olqx5"]
+[ext_resource type="Texture2D" uid="uid://bvku0uderbhwb" path="res://clockwise.png" id="3_vdhec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21omp"]
 size = Vector2(512, 512)
@@ -30,5 +31,20 @@ width = 2.0
 script = ExtResource("2_olqx5")
 rect_length = 464.0
 
+[node name="ButtonRotate" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -336.0
+offset_right = 16.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("3_vdhec")
+
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="pressed" from="ButtonRotate" to="." method="_on_button_rotate_pressed"]

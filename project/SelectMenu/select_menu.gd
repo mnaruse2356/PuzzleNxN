@@ -34,6 +34,13 @@ func _on_load_file_dialog_image_loaded(image: Image) -> void:
 
 func _on_button_trim_ok_pressed() -> void:
 	var rect = _trim_image.get_trim_rect()
+	match _trim_image.rotate_num:
+		1:
+			_edit_image.rotate_90(ClockDirection.CLOCKWISE)
+		2:
+			_edit_image.rotate_180()
+		3: 
+			_edit_image.rotate_90(ClockDirection.COUNTERCLOCKWISE)
 	var game_image = Image.create_empty(rect.size.x, rect.size.y, false, _edit_image.get_format())
 	game_image.blit_rect(_edit_image, Rect2i(rect), Vector2i(0, 0))
 	game_image.resize(SAVE_IMAGE_SIZE, SAVE_IMAGE_SIZE, Image.Interpolation.INTERPOLATE_CUBIC)

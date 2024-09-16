@@ -62,6 +62,14 @@ func _input(event: InputEvent) -> void:
 func _on_area_2d_mouse_exited() -> void:
 	_mouse_drag = false
 
+func _on_button_rotate_pressed() -> void:
+	var image = $Area2D/Mask/Image
+	image.global_rotation_degrees += 90
+	rotate_num += 1
+	if rotate_num > 4:
+		rotate_num -= 4
+	_limit_image_position(image)
+
 func set_texture(texture: ImageTexture) -> void:
 	var image: Sprite2D = $Area2D/Mask/Image
 	image.texture = texture
@@ -116,40 +124,60 @@ func get_trim_rect() -> Rect2:
 	var image_scale = image.scale
 	var border_length = $Border.rect_length
 	var rect: Rect2
-	rect.position.x = texture_size.x * 0.5 - (border_length * 0.5 + image_position.x) / image_scale.x
-	rect.position.y = texture_size.y * 0.5 - (border_length * 0.5 + image_position.y) / image_scale.y
-	rect.size.x = border_length / image_scale.x
-	rect.size.y = border_length / image_scale.y
+	if rotate_num % 2 == 1:
+		rect.position.x = texture_size.y * 0.5 - (border_length * 0.5 + image_position.x) / image_scale.y
+		rect.position.y = texture_size.x * 0.5 - (border_length * 0.5 + image_position.y) / image_scale.x
+		rect.size.x = border_length / image_scale.y
+		rect.size.y = border_length / image_scale.x
+	else:
+		rect.position.x = texture_size.x * 0.5 - (border_length * 0.5 + image_position.x) / image_scale.x
+		rect.position.y = texture_size.y * 0.5 - (border_length * 0.5 + image_position.y) / image_scale.y
+		rect.size.x = border_length / image_scale.x
+		rect.size.y = border_length / image_scale.y
 	return rect
 
 func _limit_image_position(image: Sprite2D) -> void:
 	var current_rect = _get_image_scaled_rect(image)
 	var border_half = $Border.rect_length * 0.5
 	if (current_rect.position.x > -border_half):
-		image.position.x = calc_image_position_x(-border_half, image)
+		image.position.x = _calc_image_position_x(-border_half, image)
 	elif (current_rect.position.x + current_rect.size.x < border_half):
-		image.position.x = calc_image_position_x(border_half - current_rect.size.x, image)
+		image.position.x = _calc_image_position_x(border_half - current_rect.size.x, image)
 	if (current_rect.position.y > -border_half):
-		image.position.y = calc_image_position_y(-border_half, image)
+		image.position.y = _calc_image_position_y(-border_half, image)
 	elif (current_rect.position.y + current_rect.size.y < border_half):
-		image.position.y = calc_image_position_y(border_half - current_rect.size.y, image)
+		image.position.y = _calc_image_position_y(border_half - current_rect.size.y, image)
 
 func _get_image_scaled_rect(image: Sprite2D) -> Rect2:
 	var texture_size = image.texture.get_size()
 	var image_position = image.position
 	var image_scale = image.scale
 	var rect: Rect2
-	rect.position.x = -texture_size.x * 0.5 * image_scale.x + image_position.x
-	rect.position.y = -texture_size.y * 0.5 * image_scale.y + image_position.y
-	rect.size.x = texture_size.x * image_scale.x
-	rect.size.y = texture_size.y * image_scale.y
+	if rotate_num % 2 == 1:
+		rect.position.x = -texture_size.y * 0.5 * image_scale.y + image_position.x
+		rect.position.y = -texture_size.x * 0.5 * image_scale.x + image_position.y
+		rect.size.x = texture_size.y * image_scale.y
+		rect.size.y = texture_size.x * image_scale.x
+	else:
+		rect.position.x = -texture_size.x * 0.5 * image_scale.x + image_position.x
+		rect.position.y = -texture_size.y * 0.5 * image_scale.y + image_position.y
+		rect.size.x = texture_size.x * image_scale.x
+		rect.size.y = texture_size.y * image_scale.y
 	return rect
 
-func calc_image_position_x(x: float, image: Sprite2D) -> float:
-	return x + image.texture.get_size().x * 0.5 * image.scale.x
+func _calc_image_position_x(x: float, image: Sprite2D) -> float:
+	if rotate_num % 2 == 1:
+		x += image.texture.get_size().y * 0.5 * image.scale.y
+	else:
+		x += image.texture.get_size().x * 0.5 * image.scale.x
+	return x
 
-func calc_image_position_y(x: float, image: Sprite2D) -> float:
-	return x + image.texture.get_size().y * 0.5 * image.scale.y
+func _calc_image_position_y(y: float, image: Sprite2D) -> float:
+	if rotate_num % 2 == 1:
+		y += image.texture.get_size().x * 0.5 * image.scale.x
+	else:
+		y += image.texture.get_size().y * 0.5 * image.scale.y
+	return y
 
 const _ZOOM_OUT_LIMIT = 1.0
 const _DISP_RECT_SIZE = 512
@@ -163,3 +191,5 @@ var _mouse_wheel_enabled = false
 var _web_mobile = false
 var _touch_pos = [null, null]
 var _prev_touch_length = 0.0
+
+var rotate_num: int = 0
