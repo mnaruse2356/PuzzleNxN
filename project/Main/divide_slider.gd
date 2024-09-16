@@ -1,3 +1,7 @@
+#
+# Copyright (c) 2024 NARUSE Masahiro
+# This software is released under the MIT License, see License.
+#
 extends HSlider
 
 

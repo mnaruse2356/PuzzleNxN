@@ -1,3 +1,7 @@
+#
+# Copyright (c) 2024 NARUSE Masahiro
+# This software is released under the MIT License, see License.
+#
 class_name Main
 extends Node2D
 

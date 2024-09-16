@@ -2,7 +2,8 @@
 //  ph_photo_picker.mm
 //  PHPhotoPicker
 //
-//  Created by Naruse Masahiro on 2024/08/23.
+//  Copyright (c) 2024 NARUSE Masahiro
+//  This software is released under the MIT License, see License.
 //
 
 #include "ph_photo_picker.h"

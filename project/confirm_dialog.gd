@@ -1,3 +1,7 @@
+#
+# Copyright (c) 2024 NARUSE Masahiro
+# This software is released under the MIT License, see License.
+#
 extends ConfirmationDialog
 
 # Called when the node enters the scene tree for the first time.
