@@ -57,7 +57,7 @@ if (window.html5filedialoginterface == null) {
 
 			input.setAttribute('id','html5filedialog-'+id);
 			input.setAttribute('type','file');
-			input.setAttribute('style','display: none;');
+			input.setAttribute('style','position: absolute; bottom: 16px; left: 50%; height: 48px; transform: translate(-30%, 0); align-content: center; opacity: 0; pointer-events: none;');
 			input.setAttribute('data-id', ''+id);
 
 			if (FileMode == "OPEN_DIRECTORY" || FileMode == "OPEN_DIRECTORIES") {
@@ -96,12 +96,20 @@ if (window.html5filedialoginterface == null) {
 			console.log("HTML5FileDialog: opening dialog for "+id);
 			let input = document.getElementById('html5filedialog-'+id);
 			input.value = "";
-			if (navigator.userActivation.isActive) {
-				input.click();
+
+			let userAgent = navigator.userAgent;
+			if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+				input.style.opacity = 1;
+				input.style["pointer-events"] = "auto";
 			} else {
-				setTimeout(function() {
+				if (navigator.userActivation.isActive) {
 					input.click();
-				}, 250);
+				} else {
+					setTimeout(function() {
+						input.click();
+						console.log("HTML5FileDialog: delay input.click(); for "+id);
+					}, 250);
+				}
 			}
 		},
 
@@ -116,6 +124,10 @@ if (window.html5filedialoginterface == null) {
 			
 			let callback = window.html5filedialoginterface.callbacks[id]
 			callback(...out);
+
+			let input = document.getElementById('html5filedialog-'+id);
+			input.style.opacity = 0;
+			input.style["pointer-events"] = "none";
 		}
 	}
 }
