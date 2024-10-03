@@ -12,8 +12,10 @@ z_index = 50
 script = ExtResource("1_0jtks")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 10
 shape = SubResource("RectangleShape2D_21omp")
 
 [node name="Mask" type="Polygon2D" parent="Area2D"]
@@ -46,5 +48,6 @@ grow_vertical = 2
 icon = ExtResource("3_vdhec")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 [connection signal="pressed" from="ButtonRotate" to="." method="_on_button_rotate_pressed"]

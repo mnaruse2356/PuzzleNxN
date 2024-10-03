@@ -27,6 +27,11 @@ func _process(delta: float) -> void:
 				_zoom_image(factor)
 			_prev_touch_length = length
 			_mouse_drag = false
+	if _mouse_exit_count > 0:
+		_mouse_exit_count += 1
+		if _mouse_exit_count > 30:
+			_mouse_drag = false
+			_mouse_exit_count = 0
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -76,8 +81,13 @@ func _input(event: InputEvent) -> void:
 					_touch_pos[i] = event.position
 					break
 
+func _on_area_2d_mouse_entered() -> void:
+	if _mouse_drag:
+		_mouse_exit_count = 0
+
 func _on_area_2d_mouse_exited() -> void:
-	_mouse_drag = false
+	if _mouse_drag:
+		_mouse_exit_count = 1
 
 func _on_button_rotate_pressed() -> void:
 	var image = $Area2D/Mask/Image
@@ -200,6 +210,7 @@ const _ZOOM_OUT_LIMIT = 1.0
 const _DISP_RECT_SIZE = 512
 
 var _mouse_drag = false
+var _mouse_exit_count = 0
 var _scale_factor: float = 1.0
 var _scale_coefficient: float = 1.0
 
