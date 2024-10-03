@@ -55,13 +55,26 @@ func _input(event: InputEvent) -> void:
 	elif _web_mobile:
 		if event is InputEventScreenTouch:
 			if event.pressed:
-				if event.index > 0:
-					_mouse_drag = false
+				for i in range(0, _touch_index.size()):
+					var index = _touch_index[i]
+					if index == null:
+						_touch_index[i] = event.index
+						if i > 0:
+							_mouse_drag = false
+						break
 			else:
-				_touch_pos[event.index] = null
-				_prev_touch_length = 0.0
+				for i in range(0, _touch_index.size()):
+					var index = _touch_index[i]
+					if index == event.index:
+						_touch_pos[i] = null
+						_touch_index[i] = null
+						_prev_touch_length = 0.0
+						break
 		if event is InputEventScreenDrag:
-			_touch_pos[event.index] = event.position
+			for i in range(0, _touch_index.size()):
+				if _touch_index[i] == event.index:
+					_touch_pos[i] = event.position
+					break
 
 func _on_area_2d_mouse_exited() -> void:
 	_mouse_drag = false
@@ -194,6 +207,7 @@ var _mouse_wheel_enabled = false
 
 var _web_mobile = false
 var _touch_pos = [null, null]
+var _touch_index = [null, null]
 var _prev_touch_length = 0.0
 
 var rotate_num: int = 0
