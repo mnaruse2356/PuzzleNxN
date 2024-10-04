@@ -124,6 +124,8 @@ grow_vertical = 2
 text = "BACK_TO_MENU"
 language = "ja_JP"
 
+[connection signal="draw" from="VBoxContainer" to="." method="_on_v_box_container_draw"]
+[connection signal="hidden" from="VBoxContainer" to="." method="_on_v_box_container_hidden"]
 [connection signal="gui_input" from="VBoxContainer/InstalledImage1" to="." method="_on_installed_image_1_gui_input"]
 [connection signal="gui_input" from="VBoxContainer/InstalledImage2" to="." method="_on_installed_image_2_gui_input"]
 [connection signal="gui_input" from="VBoxContainer/DeviceImage" to="." method="_on_device_image_gui_input"]

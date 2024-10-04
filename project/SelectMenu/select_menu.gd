@@ -88,6 +88,11 @@ func _notification(what: int) -> void:
 						confirmDialog.setup_contents(confirmDialog.Contents.QUIT)
 						confirmDialog.popup_centered()
 
+func _on_v_box_container_draw() -> void:
+	$LoadFileDialog.enable_file_dialog(true)
+
+func _on_v_box_container_hidden() -> void:
+	$LoadFileDialog.enable_file_dialog(false)
 
 func _change_main_scene(texture: Texture2D) -> void:
 	var main_scene = MAIN_SCENE.instantiate()

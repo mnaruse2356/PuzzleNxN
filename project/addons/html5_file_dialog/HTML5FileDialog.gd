@@ -117,6 +117,11 @@ if (window.html5filedialoginterface == null) {
 			
 			let callback = window.html5filedialoginterface.callbacks[id]
 			callback(...out);
+		},
+
+		enable_dialog: function(id, enable) {
+			let input = document.getElementById('html5filedialog-'+id);
+			input.style["display"] = enable ? "block" : "none";
 		}
 	}
 }
@@ -174,5 +179,9 @@ func _notification(what):
 		if interface:
 			# Removes the <input> element when this node is freed
 			interface.deregister_dialog(get_instance_id())
+
+func enable_dialog(enabled: bool):
+	if interface:
+		interface.enable_dialog(get_instance_id(), enabled)
 
 var rect: Rect2

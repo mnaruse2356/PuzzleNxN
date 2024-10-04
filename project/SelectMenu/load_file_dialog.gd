@@ -52,6 +52,10 @@ func place_html5_button(rect: Rect2) -> void:
 		_plugin.rect = screen_rect
 		add_child(_plugin)		
 
+func enable_file_dialog(enabled: bool) -> void:
+	if _os_type == OSType.WEB:
+		_plugin.enable_dialog(enabled)
+
 func open_dialog() -> void:
 	match _os_type:
 		OSType.ANDROID:
