@@ -8,6 +8,8 @@ func _ready() -> void:
 	_set_menu_trim_mode(false)
 	confirmDialog = ConfirmDialog
 	confirmDialog.connect("confirmed", _on_confirm_dialog_confirmed)
+	await get_tree().process_frame
+	$LoadFileDialog.place_html5_button($VBoxContainer/DeviceImage.get_global_rect())
 
 func _on_installed_image_1_gui_input(event: InputEvent) -> void:
 	_on_installed_image_gui_input(event, $VBoxContainer/InstalledImage1)

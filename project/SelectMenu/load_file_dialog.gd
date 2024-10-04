@@ -38,7 +38,19 @@ func _ready() -> void:
 				_plugin.connect("file_selected", _on_html5_file_selected)
 				_plugin.filters = ["image/jpeg"]
 				_plugin.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
-				add_child(_plugin)
+
+func place_html5_button(rect: Rect2) -> void:
+	if _os_type == OSType.WEB:
+		var screen_rect: Rect2
+		var root_size = get_tree().get_root().get_window().size
+		var screen_transform = get_tree().get_root().get_window().get_screen_transform()
+		screen_rect = screen_transform * rect
+		screen_rect.position.x = screen_rect.position.x / root_size.x * 100
+		screen_rect.position.y = screen_rect.position.y / root_size.y * 100
+		screen_rect.size.x = screen_rect.size.x / root_size.x * 100
+		screen_rect.size.y = screen_rect.size.y / root_size.y * 100
+		_plugin.rect = screen_rect
+		add_child(_plugin)		
 
 func open_dialog() -> void:
 	match _os_type:
@@ -48,7 +60,8 @@ func open_dialog() -> void:
 		OSType.IOS:
 			_plugin.present()
 		OSType.WEB:
-			_plugin.show()
+			# _plugin.show()
+			pass
 		OSType.OTHER:
 			current_dir = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_PICTURES)
 			popup_centered()

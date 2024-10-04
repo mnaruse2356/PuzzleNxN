@@ -57,7 +57,7 @@ if (window.html5filedialoginterface == null) {
 
 			input.setAttribute('id','html5filedialog-'+id);
 			input.setAttribute('type','file');
-			input.setAttribute('style','position: absolute; bottom: 16px; left: 50%; height: 48px; transform: translate(-30%, 0); align-content: center; opacity: 0; pointer-events: none;');
+			input.setAttribute('style','position: absolute; left: {left}%; top: {top}%; width: {width}%; height: {height}%; opacity: 0;');
 			input.setAttribute('data-id', ''+id);
 
 			if (FileMode == "OPEN_DIRECTORY" || FileMode == "OPEN_DIRECTORIES") {
@@ -141,7 +141,7 @@ func _ready():
 		update_configuration_warnings()
 	
 	if is_web:
-		JavaScriptBridge.eval(js_snippet)
+		JavaScriptBridge.eval(js_snippet.format({"left": rect.position.x, "top": rect.position.y, "width": rect.size.x, "height": rect.size.y}))
 		interface = JavaScriptBridge.get_interface('html5filedialoginterface')
 		
 		_callback = JavaScriptBridge.create_callback(_on_js_callback)
@@ -185,3 +185,5 @@ func _notification(what):
 		if interface:
 			# Removes the <input> element when this node is freed
 			interface.deregister_dialog(get_instance_id())
+
+var rect: Rect2
