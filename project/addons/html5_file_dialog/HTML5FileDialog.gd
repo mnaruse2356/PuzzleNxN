@@ -96,20 +96,13 @@ if (window.html5filedialoginterface == null) {
 			console.log("HTML5FileDialog: opening dialog for "+id);
 			let input = document.getElementById('html5filedialog-'+id);
 			input.value = "";
-
-			let userAgent = navigator.userAgent;
-			if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
-				input.style.opacity = 1;
-				input.style["pointer-events"] = "auto";
+			if (navigator.userActivation.isActive) {
+				input.click();
 			} else {
-				if (navigator.userActivation.isActive) {
+				setTimeout(function() {
 					input.click();
-				} else {
-					setTimeout(function() {
-						input.click();
-						console.log("HTML5FileDialog: delay input.click(); for "+id);
-					}, 250);
-				}
+					console.log("HTML5FileDialog: delay input.click(); for "+id);
+				}, 250);
 			}
 		},
 
