@@ -117,10 +117,6 @@ if (window.html5filedialoginterface == null) {
 			
 			let callback = window.html5filedialoginterface.callbacks[id]
 			callback(...out);
-
-			let input = document.getElementById('html5filedialog-'+id);
-			input.style.opacity = 0;
-			input.style["pointer-events"] = "none";
 		}
 	}
 }
